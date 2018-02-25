@@ -20,10 +20,20 @@ blogsRouter.get('/', (request, response) => {
 })
 
 blogsRouter.post('/', (request, response) => {
+
+	if (request.body.title == undefined || request.body.url == undefined) {
+		response.status(400).send({ error: "lacking info"})
+	}
+
   const blog = new Blog(request.body)
+  console.log(blog)
+	if (request.body.likes == undefined) {
+		blog.likes = 0
+	}
+	console.log(blog)
   //const body = request.body
-  //console.log(request.body)
-  console.log(request)
+  console.log(request.body)
+  //console.log(request)
 
   blog
     .save()
